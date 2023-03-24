@@ -1,5 +1,17 @@
+"""Pacman, classic arcade game.
+
+Exercises
+
+1. Change the board.
+2. Change the number of ghosts.
+3. Change where pacman starts.
+4. Make the ghosts faster/slower.
+5. Make the ghosts smarter.
+"""
+
 from random import choice
 from turtle import *
+
 from freegames import floor, vector
 
 state = {'score': 0}
@@ -13,31 +25,34 @@ ghosts = [
     [vector(100, 160), vector(0, -5)],
     [vector(100, -160), vector(-5, 0)],
 ]
+# fmt: off
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
+    0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+    0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
+# fmt: on
+
 
 def square(x, y):
-    "Draw square using path at (x, y)."
+    """Draw square using path at (x, y)."""
     path.up()
     path.goto(x, y)
     path.down()
@@ -49,15 +64,17 @@ def square(x, y):
 
     path.end_fill()
 
+
 def offset(point):
-    "Return offset of point in tiles."
+    """Return offset of point in tiles."""
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
     return index
 
+
 def valid(point):
-    "Return True if point is valid in tiles."
+    """Return True if point is valid in tiles."""
     index = offset(point)
 
     if tiles[index] == 0:
@@ -70,10 +87,11 @@ def valid(point):
 
     return point.x % 20 == 0 or point.y % 20 == 0
 
+
 def world():
-    "Draw world using path."
+    """Draw world using path."""
     bgcolor('black')
-    path.color('blue')
+    path.color('MediumOrchid1')
 
     for index in range(len(tiles)):
         tile = tiles[index]
@@ -88,8 +106,9 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+
 def move():
-    "Move pacman and all ghosts."
+    """Move pacman and all ghosts."""
     writer.undo()
     writer.write(state['score'])
 
@@ -127,7 +146,7 @@ def move():
 
         up()
         goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+        dot(20, 'blue4')
 
     update()
 
@@ -135,13 +154,15 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    ontimer(move, 50)
+
 
 def change(x, y):
-    "Change pacman aim if valid."
+    """Change pacman aim if valid."""
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
+
 
 setup(420, 420, 370, 0)
 hideturtle()
