@@ -9,11 +9,11 @@ Exercises
 5. Make the ghosts smarter.
 """
 
-from random import choice
+from random import choice """Import libraries"""
 from turtle import *
 
 from freegames import floor, vector
-
+"""Character's Specifications"""
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
@@ -26,6 +26,7 @@ ghosts = [
     [vector(100, -160), vector(-5, 0)],
 ]
 # fmt: off
+"""Define board"""
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
@@ -163,7 +164,7 @@ def change(x, y):
         aim.x = x
         aim.y = y
 
-
+"""Methods specific to screen"""
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
