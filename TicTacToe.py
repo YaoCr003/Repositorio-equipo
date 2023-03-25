@@ -1,5 +1,11 @@
 """Tic Tac Toe
+<<<<<<< HEAD
 Exercises
+=======
+
+Exercises
+
+>>>>>>> Modificacion
 1. Give the X and O a different color and width.
 2. What happens when someone taps a taken spot?
 3. How would you detect when someone has won?
@@ -41,7 +47,11 @@ def floor(value):
 
 
 state = {'player': 0}
+<<<<<<< HEAD
 players = [drawo, drawx]
+=======
+players = [drawx, drawo]
+>>>>>>> Modificacion
 
 
 def tap(x, y):
@@ -49,6 +59,7 @@ def tap(x, y):
   x = floor(x)
   y = floor(y)
   player = state['player']
+<<<<<<< HEAD
   draw = players[player] 
   draw(x, y)
   update()
@@ -57,6 +68,12 @@ def tap(x, y):
     draw = players[player]
   else:
     state['player'] = not player
+=======
+  draw = players[player]
+  draw(x, y)
+  update()
+  state['player'] = not player
+>>>>>>> Modificacion
 
 
 setup(420, 420, 370, 0)
@@ -65,4 +82,8 @@ tracer(False)
 grid()
 update()
 onscreenclick(tap)
+<<<<<<< HEAD
 done()
+=======
+done()
+>>>>>>> Modificacion
