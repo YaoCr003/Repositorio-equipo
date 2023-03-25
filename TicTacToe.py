@@ -14,30 +14,32 @@ from freegames import line
 
 
 def grid():
-    """Draw tic-tac-toe grid."""
-    line(-67, 200, -67, -200)
-    line(67, 200, 67, -200)
-    line(-200, -67, 200, -67)
-    line(-200, 67, 200, 67)
+  """Draw tic-tac-toe grid. TABLA"""
+  line(-67, 200, -67, -200)
+  line(67, 200, 67, -200)
+  line(-200, -67, 200, -67)
+  line(-200, 67, 200, 67)
 
 
 def drawx(x, y):
-    """Draw X player."""
-    line(x, y, x + 133, y + 133)
-    line(x, y + 133, x + 133, y)
+  """Draw X player."""
+  color('Blue')
+  line(x + 40, y + 45, x + 100, y + 100)
+  line(x + 40, y + 100, x + 100, y + 45)
 
 
 def drawo(x, y):
-    """Draw O player."""
-    up()
-    goto(x + 67, y + 5)
-    down()
-    circle(62)
+  """Draw O player."""
+  up()
+  goto(x + 65, y + 45)
+  down()
+  color('Red')
+  circle(25)
 
 
 def floor(value):
-    """Round value down to grid with square size 133."""
-    return ((value + 200) // 133) * 133 - 200
+  """Round value down to grid with square size 133."""
+  return ((value + 200) // 133) * 133 - 200
 
 
 state = {'player': 0}
@@ -45,14 +47,14 @@ players = [drawx, drawo]
 
 
 def tap(x, y):
-    """Draw X or O in tapped square."""
-    x = floor(x)
-    y = floor(y)
-    player = state['player']
-    draw = players[player]
-    draw(x, y)
-    update()
-    state['player'] = not player
+  """Draw X or O in tapped square."""
+  x = floor(x)
+  y = floor(y)
+  player = state['player']
+  draw = players[player]
+  draw(x, y)
+  update()
+  state['player'] = not player
 
 
 setup(420, 420, 370, 0)
