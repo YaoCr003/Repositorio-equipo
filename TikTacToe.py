@@ -8,13 +8,13 @@ Exercises
 4. How could you create a computer player?
 """
 
-from turtle import *
+from turtle import * """Import library"""
 
 from freegames import line
 
 
 def grid():
-  """Draw tic-tac-toe grid. TABLA"""
+  """Draw tic-tac-toe grid."""
   line(-67, 200, -67, -200)
   line(67, 200, 67, -200)
   line(-200, -67, 200, -67)
@@ -41,7 +41,7 @@ def floor(value):
   """Round value down to grid with square size 133."""
   return ((value + 200) // 133) * 133 - 200
 
-
+"""Define players turn and their symbol(X or O)"""
 state = {'player': 0}
 players = [drawx, drawo]
 
@@ -56,7 +56,7 @@ def tap(x, y):
   update()
   state['player'] = not player
 
-
+"""Methods specific to screen"""
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
